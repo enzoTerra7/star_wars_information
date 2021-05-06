@@ -1,0 +1,50 @@
+.mainContainer{
+    height: 10vh;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 2rem;
+    background: #222324;
+    color: goldenrod;
+
+    strong {
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: 1.3rem;
+    }
+
+    ul {
+        list-style: none;
+        
+        li {
+            float: left;
+            padding: 0 1rem;
+            transition: all ease .2s;
+
+            &:hover{
+                text-decoration: underline;
+                color: white;
+                transition: all ease .2s;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    
+    .mainContainer{
+
+        strong{
+            font-size: .9375rem;
+        }
+
+            ul{
+
+                li{
+                    padding: 0 .5rem;
+                    font-size: .84375rem;
+                }
+            }
+    }
+}
