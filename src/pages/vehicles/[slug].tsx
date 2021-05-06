@@ -4,88 +4,90 @@ import { api } from "../../services/api";
 import styles from './styles.module.scss'
 
 import Head from "next/head";
+
 import { useEffect, useState } from "react";
+
 import axios from "axios";
 import Link from "next/link";
 
-type StarshipProp = {
-    starship: {
-        name: string;
+type EpisodeObject = {
+    episode: {
+        characters: Array<string>,
+        movies: Array<string>,
+        name: string,
         model: string,
         corp: string,
         length: string,
         maxSpeed: string,
         class: string,
         passengers: string
-        films: Array<string>,
-        pilots: Array<string>
-    }
+    };
 }
 
-export default function Starship ({starship}: StarshipProp) {
+export default function filmes ({episode}: EpisodeObject) {
 
     const details = [
         {
             id: 'model',
-            value: starship.model
+            value: episode.model
         },
         {
             id: 'corp',
-            value: starship.corp
+            value: episode.corp
         },
         {
             id: 'length',
-            value: starship.length
+            value: episode.length
         },
         {
             id: 'maxSpeed',
-            value: starship.maxSpeed
+            value: episode.maxSpeed
         },
         {
             id: 'class',
-            value: starship.class
+            value: episode.class
         },
         {
             id: 'passengers',
-            value: starship.passengers
+            value: episode.passengers
         },
 
     ]
 
-    const movies = starship.films
-
     const [movie, setMovie] = useState([])
 
-    const pilots = starship.films
+    const movies = episode.movies
 
-    const [pilot, setPilot] = useState([])
+    const persons = episode.characters
+
+    const [characters, setCharacters] = useState([])
 
     const howIsThePerson = async () => {
         await movies.forEach(async element => {
             let { data } = await axios.get(`${element}`)
             let newUrl = data.url.slice(20)
-            setMovie((p) => [...p, {title: data.title, url: newUrl} ] )
+            setMovie((p) => [...p, {title: data.title, url: newUrl}] )
         });
-        if(pilots.length > 0){
-            await pilots.forEach(async element => {
+        if(persons.length > 0) {
+            await persons.forEach(async element => {
                 let { data } = await axios.get(`${element}`)
                 let newUrl = data.url.slice(20)
-                setPilot((p) => [...p, {title: data.title, url: newUrl} ] )
+                setCharacters((p) => [...p, {name: data.name, url: newUrl}] )
             });
         }
     }
 
     useEffect( () => {
-        setPilot([])
         setMovie([])
+        setCharacters([])
         howIsThePerson()
-    },[movies])
+    },[persons])
 
     return (
         <div className={styles.mainContainer}>
 
             <Head>
-                <title>Nave | {starship.name}</title>
+                <title>Veículo | {episode.name} </title>
             </Head>
 
             <div className={styles.top}>
@@ -93,23 +95,38 @@ export default function Starship ({starship}: StarshipProp) {
             </div>
 
             <div className={styles.middle}>
-                <h1>{starship.name}</h1>
+                <h1>{episode.name}</h1>
             </div>
 
             <div className={styles.bot} >
                 <h2>Detalhes:</h2>
-                <div className={styles.details}>
+                <div>
                     {details.map( (p, index) => (
-                        <button key={index}>
+                        <button className={styles.details} key={index}>
                             {p.id}: {p.value}
                         </button>
                     ))}
                 </div>
+                <h2>Pilotos:</h2>
+                <div>
+                    {characters.length <= 0 && (
+                        <button >
+                            Sem moradores
+                        </button>
+                    )}
+                    {characters.map( (p, index) => (
+                        <Link href={`${p.url}`} key={index}>
+                            <button >
+                                {p.name}
+                            </button>
+                        </Link>
+                    ))}
+                </div>
                 <h2>Apareceu nos filmes:</h2>
-                <div className={styles.movies}>
+                <div>
                     {movie.map( (p, index) => (
-                        <Link href={p.url} key={index}>
-                            <button>
+                        <Link href={`${p.url}`} key={index}>
+                            <button >
                                 {p.title}
                             </button>
                         </Link>
@@ -122,14 +139,14 @@ export default function Starship ({starship}: StarshipProp) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 
-    const { data } = await api.get('/starships')
+    const { data } = await api.get('vehicles/')
 
-    const starship = data.results
+    const filmes = data.results
 
-    const paths = starship.map( e => {
+    const paths = filmes.map( e => {
         return {
             params: {
-                slug: e.crew
+                slug: e.name
             }
         }
     })
@@ -142,25 +159,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
 
-    let { slug } = ctx.params
+    const { slug } = ctx.params
     
-    const { data } = await api.get(`/starships/${slug}`)
+    const { data } = await api.get(`/vehicles/${slug}`)
 
-    const starship = {
+    const episode = {
         name: data.name,
         model: data.model,
         corp: data.manufacturer,
         length: data.length,
         maxSpeed: data.max_atmosphering_speed,
-        class: data.starship_class,
+        class: data.vehicle_class,
         passengers: data.passengers,
-        films: data.films,
-        pilots: data.pilots,
+        characters: data.pilots,
+        movies: data.films,
     }
     
     return{
         props: {
-            starship
+            episode
         },
         revalidate: 60 * 60 * 24,
     }

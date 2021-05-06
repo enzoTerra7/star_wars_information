@@ -66,6 +66,10 @@
                     font-weight: 600;
                     transition: background-color .2s, color .2s, font-weight .2s;
                 }
+
+                &.details{
+                    cursor: unset;
+                }
             }
         }
         
@@ -76,37 +80,6 @@
             font-weight: 200;
             margin-top: 3rem;
             margin-bottom: .5rem;
-        }
-    }
-
-    .sinopse{
-        width: 60%;
-        margin: 3rem auto;
-        
-        h2 {
-            margin-bottom: .275rem;
-        }
-        span {
-            display: block;
-            margin-bottom: 1rem;
-        }
-        .data{
-            margin-top: .635rem;
-
-            strong {
-                font-size: 1.4rem;
-                font-weight: 900;
-            }
-            ul{
-                transform: translateX(5%);
-
-                li {
-                    font-size: 1.1375rem;
-                    color: black;
-                    font-weight: 200;
-                    padding-top: .75rem;
-                }
-            }
         }
     }
 }

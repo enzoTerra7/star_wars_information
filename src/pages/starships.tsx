@@ -11,6 +11,59 @@ type StarshipsProps = {
 
 export default function Starships ({starship}: StarshipsProps) {
 
+    const hanldeCalcIndex = (index) => {
+
+        index = parseInt(index)
+
+        switch (index + 1) {
+            case 1 :
+                index = '2'
+                break;
+
+            case 2:
+                index = '3'
+                break;
+
+            case 3:
+                index = '5'
+                break;
+
+            case 4 :
+                index = '9'
+                break;
+
+            case 5 :
+                index = '10'
+                break;
+
+            case 6 :
+                index = '11'
+                break;
+
+            case 7 :
+                index = '12'
+                break;
+
+            case 8 :
+                index = '13'
+                break;
+
+            case 9 :
+                index = '15'
+                break;
+
+            case 10 :
+                index = '17'
+                break;
+        
+            default:
+                break;
+        }
+
+        return index
+
+    }
+
     const [starshipsList, setStarshipsList] = useState([])
 
     useEffect( () => {
@@ -37,7 +90,7 @@ export default function Starships ({starship}: StarshipsProps) {
             <div className={styles.bot} >
                 <div>
                     {starshipsList.map( (p, index) => (
-                        <Link href={`starships/${index + 1}`} key={index} >
+                        <Link href={`starships/${hanldeCalcIndex(index)}`} key={index} >
                             <button key={index}>
                                 {p.name}
                             </button>

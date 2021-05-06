@@ -40,7 +40,8 @@
             width: 100%;
             text-align: center;
             font-weight: 200;
-            margin-bottom: 1rem;
+            margin-top: 3rem;
+            margin-bottom: .5rem;
         }
 
         div.details{
@@ -94,7 +95,6 @@
                 padding: 1rem 2rem;
                 font-size: 1.0375rem;
                 transition: background-color .2s, color .2s, font-weight .2s;
-                cursor: unset;
 
                 &:hover {
                     background-color: #70550f;

@@ -32,15 +32,43 @@
         padding: 0 1rem;
         flex-wrap: wrap;
         margin: 0 auto;
-        width: 70%;
+        width: 60%;
         margin-bottom: 1.5rem;
+        
+        h2{
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-weight: 200;
+            margin-top: 3rem;
+            margin-bottom: .5rem;
+        }
 
-        div{
+        div.details{
             width: 100%;
             display: grid;
-            grid-template-columns: repeat(4,1fr);
             overflow-y: auto;
             max-height: 20rem;
+            grid-template-columns: repeat(2,1fr);
+
+            button {
+                margin: 1rem;
+                margin-bottom: 2rem;
+                border: none;
+                outline: none;
+                background-color: goldenrod;
+                padding: 1rem 2rem;
+                font-size: 1.0375rem;
+                transition: background-color .2s, color .2s, font-weight .2s;
+                cursor: unset;
+
+                &:hover {
+                    background-color: #70550f;
+                    color: white;
+                    font-weight: 600;
+                    transition: background-color .2s, color .2s, font-weight .2s;
+                }
+            }
 
             &::-webkit-scrollbar {
                 height: 6px;
@@ -49,6 +77,14 @@
             &::-webkit-scrollbar-thumb{
                 background-color: rgba($color: #000000, $alpha: 0.3);
             }
+        }
+
+        div.movies{
+            width: 100%;
+            display: grid;
+            overflow-y: auto;
+            max-height: 20rem;
+            grid-template-columns: repeat(2,1fr);
 
             button {
                 margin: 1rem;
@@ -67,47 +103,16 @@
                     transition: background-color .2s, color .2s, font-weight .2s;
                 }
             }
-        }
-        
-        h2{
-            display: block;
-            width: 100%;
-            text-align: center;
-            font-weight: 200;
-            margin-top: 3rem;
-            margin-bottom: .5rem;
-        }
-    }
 
-    .sinopse{
-        width: 60%;
-        margin: 3rem auto;
-        
-        h2 {
-            margin-bottom: .275rem;
-        }
-        span {
-            display: block;
-            margin-bottom: 1rem;
-        }
-        .data{
-            margin-top: .635rem;
-
-            strong {
-                font-size: 1.4rem;
-                font-weight: 900;
+            &::-webkit-scrollbar {
+                height: 6px;
+                width: 6px;
             }
-            ul{
-                transform: translateX(5%);
-
-                li {
-                    font-size: 1.1375rem;
-                    color: black;
-                    font-weight: 200;
-                    padding-top: .75rem;
-                }
+            &::-webkit-scrollbar-thumb{
+                background-color: rgba($color: #000000, $alpha: 0.3);
             }
         }
+
     }
 }
 
@@ -116,20 +121,18 @@
     .mainContainer{
 
         .bot{
-            width: 95%;
+            width: 85%;
 
-            div{
+            div.details{
                 grid-template-columns: 1fr;
             }
-        }
+            div.movies{
+                grid-template-columns: 1fr;
+            }
 
-        .sinopse{
             h2{
-                font-size: 1.125rem;
-
-                small{
-                    font-size: 1rem;
-                }
+                margin-top: 2rem;
+                margin-bottom: .5rem;
             }
         }
     }
